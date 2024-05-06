@@ -6,7 +6,7 @@ pygame.init()
 SCREEN_WIDTH = 600 # Размеры экрана
 SCREEN_HEIGHT = 600
 
-WHITE = (255, 255, 255) # белый цвет
+BLUE = (50, 10, 255) # синий цвет
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT)) # Инициализация экрана
 pygame.display.set_caption("Moving Background")
@@ -18,9 +18,9 @@ background_layer3 = pygame.transform.scale(pygame.image.load("background_layer3.
 background_layers = [
     {"image": pygame.image.load("background_layer1.png"), "speed": 1.5}, # Фоновые слои с разной скоростью прокрутки
     {"image": pygame.image.load("background_layer2.png"), "speed": 2},
-    {"image": pygame.image.load("background_layer3.png"), "speed": 0.1}
+    #{"image": pygame.image.load("background_layer3.png"), "speed": 0.1}
 ]
-
+pp={"image": pygame.image.load("background_layer3.png"), "speed": 0.1}
 
 class Star: # Динамичные фоновые элементы
     def __init__(self):
@@ -41,12 +41,17 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    screen.fill(WHITE) #Очищаем экран от предыдущего кадра
+    screen.fill(BLUE) #Очищаем экран от предыдущего кадра
     
    
     for layer in background_layers: # Обрисовываем фоновые слои с параллакс-прокруткой
         layer_x = -((layer["speed"] * pygame.time.get_ticks()) % layer["image"].get_width())
         screen.blit(layer["image"], (layer_x, 0))
+         
+         
+
+    layer_y = -((-pp["speed"] * pygame.time.get_ticks()) % pp["image"].get_width()*3-600)
+    screen.blit(pp["image"], (layer_y, 0))
     
     for star in stars: # Рисуем динамические фоновые элементы 
         star.draw()
